@@ -1,0 +1,191 @@
+
+{
+module: "clock",
+position: "top_left"
+},
+
+
+{
+module: "calendar",
+header: "Schedule",
+position: "top_left",
+config:
+    {
+    calendars:
+        [
+    {
+        symbol: "calendar-check",
+url:"https://calendar.google.com/calendar/ical/ddodojun%40gmail.com/private-927aef394d718d5b307169ad6bb9211a/basic.ics"
+    }
+]
+}
+},
+
+
+-https://www.data.go.kr/data/15080346/openapi.do#/tab_layer_prcuse_exa 정보 사용하여   스마트 미러에 지정된 버스시간 정보를 아래 코드로 출력 (경기도 기준)
+
+{
+module: "MMM-GyeonggiBus",
+position: "bottom_left",
+config:
+    {
+    apiBase: "http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList",
+serviceKey:"Xk%2F6DWJLPb%2FHxHZOFy8L43Y1HguMIL%2F2SO6wKik%2Fo1jUo4nS4%2Br6rfTiLsUdDOGNDO9NcxWbXLQreSt6HK8lRg%3D%3D",
+stationId: 236000618,
+routeId: 236000222,
+header: "Bus arrive info",
+updateInterval: 1000 * 60 * 1
+}
+},
+
+
+{
+module: "weather",
+position: "top_right",
+config:
+    {
+    weatherProvider: "openweathermap",
+type: "current",
+location: "Cheonan",
+locationID: "1845759", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+apiKey: "3bb1272f6c31ccfbb7f0375e0c4d7a55",
+onlyTemp: true
+}
+},
+{
+module: "weather",
+position: "top_right",
+//header: "예보",
+config:
+    {
+    weatherProvider: "openweathermap",
+type: "forecast",
+location: "Cheonan",
+locationID: "1845759", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+apiKey: "3bb1272f6c31ccfbb7f0375e0c4d7a55"
+    }
+},
+
+
+{
+module: 'MMM-AirQuality',
+position: 'top_right',
+config:
+    {
+    location: 'korea/chungnam/seongseong-dong',
+lang: "kr"
+}
+},
+
+
+{
+module: "EXT-YouTubeCast",
+position: "bottom_center",
+config:
+    {
+    debug: false,
+fullscreen: false,
+width: "70vw",
+height: "30vh",
+alwaysDisplayed: false,
+castName: "MagicMirror",
+port: 8569
+}
+},
+
+
+{
+module: "MMM-GoogleAssistant",
+configDeepMerge: true,
+config:
+    {
+    assistantConfig:
+        {
+        lang: "ko-KR",
+latitude: 37.3460,
+longitude: 128.550,
+},
+recipes: [
+"../../EXT-Spotify/recipe/EXT-Spotify.js"
+],
+
+}
+},
+{
+module: 'Gateway'
+},
+{
+module: "EXT-Detector",
+position: "top_left",
+config:
+    {
+    debug: false,
+detectors:
+        [
+{
+        detector: "Snowboy",
+Model: "smart_mirror",
+Sensitivity: null
+}
+]
+}
+},
+
+
+{
+module: "EXT-Browser",
+config:
+    {
+    debug: false,
+displayDelay: 60 * 1000,
+scrollActivate: true,
+scrollStep: 25,
+scrollinterval: 1000,
+scrollStart: 5000
+}
+},
+
+
+{
+module: 'EXT-Screen',
+position: 'top_left',
+config:
+    {
+    delay: 5 * 60 * 1000,
+displayCounter: false,
+displayAvailability: false
+}
+},
+{
+module: 'EXT-Pir',
+config:
+    {
+    debug: false,
+gpio: 21,
+reverseValue: false
+}
+},
+
+
+ pcm.!default {
+  type asym
+  capture.pcm "mic"
+  playback.pcm "speaker"
+ }
+ pcm.mic {
+  type plug
+  slave {
+   pcm ""
+  }
+ }
+ pcm.speaker {
+  type plug
+  slave {
+   pcm ""
+  }
+ }
+
+
+
+
+
